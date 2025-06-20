@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16.2-alpine
+    container_name: it-caribe-pgsql
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - it-caribe-network
+
+volumes:
+  postgres_data:
+
+networks:
+  it-caribe-network:
+    external: true
